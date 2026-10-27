@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#bd1730">
+  <meta name="description" content="好运刮刮乐——纯娱乐模拟刮奖小游戏，不涉及任何真实金钱。">
+  <title>好运刮刮乐</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="shop.css">
+  <link rel="stylesheet" href="book.css">
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div class="logo"><span>福</span><div><h1>好运刮刮乐</h1><p>今日份的小惊喜</p></div></div>
+      <div class="header-actions"><div class="wallet">福气币 <b id="balance">5,000</b></div><button id="sound" class="round-btn" aria-label="切换声音">🔊</button></div>
+    </header>
+
+    <section class="hero">
+      <div class="lantern l1">🏮</div><div class="lantern l2">🏮</div>
+      <p class="kicker">LUCKY SCRATCH</p>
+      <h2>刮开好运，<br>收下今天的好兆头</h2>
+      <p class="subtitle">按住鼠标或手指，在银色区域来回刮动</p>
+    </section>
+
+    <section id="shop" class="shop">
+      <div class="shop-sign"><span>好运小店</span><small>挑一张属于你的今日好运</small></div>
+      <div id="ticket-shelf" class="ticket-shelf"></div>
+      <div class="daily-box"><div><b>今日好运，从小店开始</b><span>每日可领取 5,000 虚拟福气币</span></div><button id="daily-claim">领取今日福气</button></div>
+      <div class="shop-links"><button id="show-rules">玩法与概率</button><button id="show-records">纪念票夹 <b id="record-count">0</b></button></div>
+    </section>
+
+    <section id="game-wrap" class="game-wrap hidden">
+      <button id="back-shop" class="back-shop">← 返回小店</button>
+      <div class="game-heading"><h2 id="selected-name">喜相逢</h2><span id="selected-cost">20 福气币 / 张</span></div>
+      <div id="ticket" class="ticket imperial-ticket">
+        <div class="ticket-top">
+          <span class="ticket-series">NO. <b id="ticket-no">000001</b></span>
+          <span class="ticket-tag">纯娱乐体验</span>
+        </div>
+        <div class="cloud cloud-left">☁</div><div class="cloud cloud-right">☁</div>
+        <div id="ticket-title" class="ticket-title"><span>喜</span><span>相</span><span>逢</span></div>
+        <div id="wish-plaque" class="wish-plaque">心 想 事 成</div>
+        <div class="top-prize">最高福气 <b>888</b> 点</div>
+        <p>刮开圆满图案 · 收集今日福气</p>
+
+        <div id="scratch-area" class="scratch-area">
+          <div class="prize-layer">
+            <div id="prize-grid" class="prize-grid"></div>
+            <div class="prize-summary"><span id="prize-icon">🧧</span><b id="prize-label">今日好运</b><strong id="prize-value">+88 福气值</strong><small id="prize-message">有好事正在向你靠近</small></div>
+          </div>
+          <canvas id="scratch-canvas" aria-label="刮奖区域"></canvas>
+          <div id="hint" class="scratch-hint"><span>👆</span> 在这里刮一刮</div>
+        </div>
+
+        <div class="progress-row">
+          <span>已刮开 <b id="percent">0%</b></span>
+          <div class="progress"><i id="progress-bar"></i></div>
+        </div>
+        <div class="side-couplet left">一帆风顺</div><div class="side-couplet right">万事顺遂</div>
+        <div class="bottom-plaque">吉 祥 如 意</div>
+        <div class="ticket-bottom"><span>保安区刮开无效</span><span>LUCKY DAY · 25次好运机会</span></div>
+      </div>
+
+      <div id="result" class="result" aria-live="polite">
+        <div class="result-badge">揭晓啦</div>
+        <h3 id="result-title">今日好运已到账！</h3>
+        <p id="result-text">你收获了 88 福气值</p>
+        <div class="actions">
+          <button id="share" class="primary">分享好运</button>
+          <button id="new-card" class="secondary">再刮一张</button>
+        </div>
+      </div>
+      <div id="book-status" class="book-status hidden"><b>整本模式</b><span>当前第 <strong id="book-current">1</strong>/20 张 · 还剩 <strong id="book-remaining">19</strong> 张</span></div>
+      <div class="purchase-bar"><button id="buy-one">抽下一张</button><button id="auto-scratch">单张自动刮</button><button id="book-action">买整本 ×20</button></div>
+    </section>
+
+    <section class="stats">
+      <div><span>今日已刮</span><strong id="plays">0</strong><small>张</small></div>
+      <div><span>累计福气</span><strong id="total-luck">0</strong><small>点</small></div>
+      <div><span>最佳手气</span><strong id="best">0</strong><small>点</small></div>
+    </section>
+
+    <section class="rules">
+      <h3>玩法说明</h3>
+      <ol><li>刮开圆形图案：出现“喜”可获得格内福气，稀有“双喜”按双倍计算。</li><li>多格好运可以累计；刮开超过 55% 自动结算本张票面。</li><li>福气值仅为虚拟记录；游戏不涉及购买、充值、提现或真实奖品。</li></ol>
+    </section>
+    <div id="modal" class="modal hidden"><div class="modal-card"><button id="modal-close" class="modal-close">×</button><h2 id="modal-title">玩法与概率</h2><div id="modal-body"></div></div></div>
+  </main>
+  <aside id="temptation-devil" class="temptation-devil" aria-live="polite" aria-hidden="true">
+    <button id="devil-close" class="devil-close" aria-label="关闭提示">×</button>
+    <div class="devil-bubble">
+      <strong id="devil-line-1">再买一张，</strong><span id="devil-line-2">说不定就回本了！</span>
+      <small>😈 恶魔的诱惑 · 娱乐模拟，别上头</small>
+    </div>
+    <div class="devil-character" aria-hidden="true">
+      <i class="horn horn-left"></i><i class="horn horn-right"></i>
+      <div class="devil-head"><b class="eye left-eye"></b><b class="eye right-eye"></b><em></em></div>
+      <div class="devil-body"><span>♠</span></div><i class="devil-tail"></i>
+    </div>
+  </aside>
+  <div id="toast" class="toast"></div>
+  <script src="game.js"></script>
+</body>
+</html>

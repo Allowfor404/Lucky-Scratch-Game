@@ -1,0 +1,72 @@
+.prize-grid.revealed .prize-cell.win-cell {
+  position: relative;
+  z-index: 2;
+  color: #9d1126;
+  background: radial-gradient(circle, #fffbd1 0, #ffd85e 58%, #ed9d1b 100%);
+  border-color: #a30e25;
+  box-shadow: 0 0 0 3px #fff1a2, 0 0 18px 7px rgba(255, 217, 74, .9);
+  transform: scale(1.05);
+  animation: winnerPulse 1.15s ease-in-out infinite;
+}
+.prize-grid.revealed .prize-cell.win-cell::after {
+  content: "中奖";
+  position: absolute;
+  right: -6px;
+  top: -8px;
+  padding: 2px 4px;
+  color: #fff3b2;
+  background: #c91835;
+  border: 1px solid #ffe688;
+  border-radius: 8px;
+  font-size: 7px;
+  line-height: 1;
+  transform: rotate(8deg);
+}
+.prize-grid.revealed .prize-cell.win-cell b { font-size: 26px; text-shadow: 0 1px #fff; }
+.prize-grid.revealed .prize-cell.win-cell small { color: #8b1424; font-weight: 900; }
+@keyframes winnerPulse { 50% { filter: brightness(1.12); box-shadow: 0 0 0 4px #fff1a2, 0 0 25px 10px rgba(255, 217, 74, .95); } }
+.purchase-bar { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.purchase-bar button:nth-child(2) { background: #7e311e; }
+.purchase-bar button:last-child { background: #285f42; }
+.book-status { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 12px; padding: 10px 13px; border: 2px solid #d9aa53; border-radius: 13px; background: #fff0bd; color: #71391f; font-size: 12px; }
+.book-status b { padding: 4px 8px; border-radius: 10px; color: #fff1ba; background: #a91e2e; }
+.book-status strong { color: #bd1c31; font-size: 16px; }
+.book-summary { padding: 18px 8px; text-align: center; }
+.book-summary b, .book-summary strong { display: block; }
+.book-summary b { color: #7a3c22; font-size: 18px; }
+.book-summary strong { margin: 14px 0 8px; color: #c31d35; font-size: 30px; }
+.book-summary p { color: #865f4e; }
+@media (max-width: 520px) {
+  .purchase-bar { grid-template-columns: 1fr 1fr; }
+  .purchase-bar button:last-child { grid-column: 1 / -1; }
+  .book-status { align-items: flex-start; flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) { .prize-grid.revealed .prize-cell.win-cell { animation: none; } }
+
+/* Each ticket family carries its own visual identity. */
+.imperial-ticket {
+  background: linear-gradient(90deg, var(--ticket-deep, #9d0c27), var(--ticket-main, #ed1538) 13%, var(--ticket-main, #ed1538) 87%, var(--ticket-deep, #9d0c27));
+  border-color: var(--ticket-gold, #f5d27b);
+}
+.imperial-ticket .cloud { color: var(--ticket-accent, #06458e); text-shadow: 3px 3px var(--ticket-gold, #f5d27b); }
+.imperial-ticket .ticket-title span { background: var(--ticket-main, #ed1538); border-color: var(--ticket-gold, #f5d27b); box-shadow: 0 0 0 5px var(--ticket-accent, #06458e); color: var(--ticket-gold, #f5d27b); }
+.imperial-ticket .wish-plaque, .imperial-ticket .bottom-plaque { background: var(--ticket-main, #ed1538); border-color: var(--ticket-gold, #f5d27b); box-shadow: 0 0 0 4px var(--ticket-accent, #06458e); color: var(--ticket-gold, #f5d27b); }
+.imperial-ticket .scratch-area { border-color: var(--ticket-gold, #f5d27b); box-shadow: 0 0 0 6px var(--ticket-accent, #06458e), 0 0 0 9px var(--ticket-gold, #f5d27b); }
+.imperial-ticket .prize-layer { background: var(--ticket-main, #ed1538); }
+.imperial-ticket .prize-cell { border-color: var(--ticket-accent, #06458e); }
+.imperial-ticket .prize-summary { border-color: var(--ticket-accent, #06458e); }
+.imperial-ticket .side-couplet { background: var(--ticket-main, #ed1538); border-color: var(--ticket-gold, #f5d27b); box-shadow: 0 0 0 3px var(--ticket-accent, #06458e); color: var(--ticket-gold, #f5d27b); }
+.imperial-ticket .ticket-tag, .imperial-ticket .ticket-bottom span:first-child { background: var(--ticket-accent, #06458e); border-color: var(--ticket-gold, #f5d27b); }
+.imperial-ticket .progress { background: var(--ticket-deep, #7f1730); }
+.imperial-ticket .progress i { background: var(--ticket-gold, #ffe273); }
+
+/* Desktop: park the devil beside the lower-left edge of the ticket. */
+@media (min-width: 860px) {
+  .temptation-devil {
+    left: max(10px, calc(50% - 500px));
+    top: 50%;
+    bottom: auto;
+    transform: translate(-115%, -50%);
+  }
+  .temptation-devil.show { transform: translate(0, -50%); }
+}
